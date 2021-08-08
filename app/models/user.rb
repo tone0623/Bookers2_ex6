@@ -4,19 +4,20 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   attachment :profile_image, destroy: false
-  has_many :books
-  has_many :favorites
-  has_many :book_comments
+  has_many :books, dependent: :destroy
+  has_many :favorites,dependent: :destroy
+  has_many :book_comments, dependent: :destroy
   validates :name, presence: true, length: {maximum: 10, minimum: 2}
   validates :introduction, length: {maximum: 50}
   
-  # フォロワー
-  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'followee_id'
-  has_many :followers, source: :follower
   
-  # フォローしている人
-  has_many :relationships, foreign_key: "follower_id"
-  has_many :followings, source: :followee
+   # フォローする側
+  has_many :relationships, class_name: 'Relationship', foreign_key: "follower_id", dependent: :destroy
+  has_many :followings, through: :relationships, source: :followee, dependent: :destroy
+  
+  # フォローされる側
+  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'followee_id', dependent: :destroy
+  has_many :followers, through: :reverse_of_relationships,  source: :follower, dependent: :destroy
   
   def following?(another_user)
     self.followings.include?(another_user)
@@ -30,7 +31,7 @@ class User < ApplicationRecord
   
   def unfollow(another_user)
     unless self == another_user
-      relationship = self.relationships.find(followee_id: another_user.id)
+      relationship = self.relationships.find_by(followee_id: another_user.id)
       relationship.destroy if relationship
     end
   end
