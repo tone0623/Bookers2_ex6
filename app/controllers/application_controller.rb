@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :profle_image, :email])
       devise_parameter_sanitizer.permit(:sign_in, keys: [:name]) # ログイン時にnameを使用
     end
+    
     def correct_user?(user)
       if current_user.nil?
         return false
