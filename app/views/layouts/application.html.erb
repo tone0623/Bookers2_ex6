@@ -16,9 +16,12 @@
             <p id="notice"><%= notice %></p>
             <div class = "center">
             <% if user_signed_in? %>
+                  <!--検索フォーム-->
                   <%= form_with url: search_path, local: true do |f| %>
                     <%= f.text_field :search %>
+                    <!--検索モデルをプルダウンで表示-->
                     <%= f.select :search_model, [ ["User"], ["Book"]]%>
+                    <!--検索条件をプルダウンで表示-->
                     <%= f.select :search_method, [ ["完全一致","perfect_match"], ["部分一致","partial_match"],["前方一致","forward_match"], ["後方一致","backward_match"]]%>
                     <%= f.submit '検索'%>
                   <% end %>

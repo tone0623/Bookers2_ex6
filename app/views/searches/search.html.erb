@@ -1,9 +1,12 @@
+<!--検索結果画面-->
 <div class = "row">
     
     <h2><%= @search_model %> search for "<%= @search_name %>"</h2>
 </div>
 <div class = "row">
     <div class = "col-xs-8 col-xs-offset-2">
+        
+        <!--検索モデルがUserの場合-->
         <% if @search_model == "User"%>
             <table class = "table">
                 <thead>
@@ -22,6 +25,7 @@
                 </tbody>
             </table>
         <% else%>
+        <!--検索がBookの場合-->
             <table class = "table">
                 <thead>
                     <tr>
@@ -42,5 +46,4 @@
             </table>
         <% end %>
     </div>
-    
 </div>

@@ -1,1 +1,2 @@
+<!--いいね削除時の非同期通信・HTMLをjQueryによって書き換え-->
 $('.table__favorite--'+<%= @favorite.book_id%>).html("<%= j(render 'favorites/book',  book: @favorite.book, user: @favorite.user ) %>")

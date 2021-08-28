@@ -7,12 +7,14 @@ class BookCommentsController < ApplicationController
     @comment.user_id = current_user.id
     @comment.book_id = params[:book_id]
     @comment.save
+    # 非同期通信
     render :create
   end
 
   def destroy
     @comment = BookComment.find(params[:id])
     @comment.destroy
+    # 非同期通信
     render :destroy
   end
 

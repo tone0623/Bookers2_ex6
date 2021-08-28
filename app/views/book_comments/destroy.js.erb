@@ -1,2 +1,6 @@
+<!--コメント削除時の非同期通信-->
+
+<!--本詳細のコメント数をjQueryで書き換え-->
 $('.detail__table').html("<%= j(render 'books/detail', book: @comment.book) %>")
+<!--コメント一覧をjQueryで書き換え-->
 $('.comment__table').html("<%= j(render 'book_comments/table', book_comments: @comment.book.book_comments ) %>")
