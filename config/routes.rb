@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   root 'home#top'
   get 'home/about'
   
-  get 'search' => "searches#search", as: "search"
+  post 'search' => "searches#search", as: "search"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
